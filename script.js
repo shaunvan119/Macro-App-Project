@@ -1,12 +1,13 @@
 const searchForm = document.querySelector("form"); // CSS selector which allows you to select elements in HTML (element selected <form></form> from HTML)
 const searchResultDiv = document.querySelector(".search-result"); // element selected from html <div class="search-result">
 const container = document.querySelector(".container"); // element selected <div class="container initial">
+
+
+//API
+
 let searchQuery = "";
-const APP_ID = "daa69c3e"; //API
+const APP_ID = "daa69c3e"; 
 const APP_key = "606223eac7048b332bab16a880b0571a";
-
-
-
 
 
 
@@ -27,6 +28,10 @@ async function fetchAPI() {
   console.log(data);
 }
 
+function myFunction(x) {
+  x.classList.toggle("fa-thumbs-down");
+}
+
 //Below function is calling the results from our data.hits array results
 
  function generateHTML(results){
@@ -36,20 +41,26 @@ async function fetchAPI() {
  results.map(result => {  
  generatedHTML +=
  `
+ 
 <div class="item">
   <img src="${result.food.image}" alt="img">
   <div class="flex-container">
   <h1 class="title">${result.food.label}</h1>   
 </div>
-  <p class="item-data">Carbs: ${result.food.nutrients.CHOCDF}</p>
-  <p class="item-data">Protein: ${result.food.nutrients.PROCNT}</p>
-  <p class="item-data">Fat: ${result.food.nutrients.FAT}</p>
-  <p class="item-data">Servings: ${result.food.servingsPerContainer}</p>   
+  <p class="item-data">Carbs Grams: ${result.food.nutrients.CHOCDF.toFixed(2)}</p>
+  <p class="item-data">Protein Grams: ${result.food.nutrients.PROCNT.toFixed(2)}</p>
+  <p class="item-data">Fat Grams: ${result.food.nutrients.FAT.toFixed(2)}</p>
+  <p class="item-data">Servings: ${result.food.servingsPerContainer}</p>
+  <i onclick="myFunction(this)" class="fa fa-thumbs-up"></i>
 </div>
 `;
+
 });
+
 searchResultDiv.innerHTML = generatedHTML;
 }
+
+
  // apply the 20 items from the above looping array to the search reults div (ref line 13 html)
     
 
